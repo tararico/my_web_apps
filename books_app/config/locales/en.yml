@@ -31,3 +31,25 @@
 
 en:
   hello: "Hello world"
+  Books: Books
+  Title: Title
+  Memo: Memo
+  Author: Author
+  Picture: Picture
+  Show: Show
+  Edit: Edit
+  Destroy: Destroy
+  New Book: New Book
+  Back: Back
+  Editing Book: Editing Book
+  Are you sure?: Are you sure?
+
+  books:
+    destroy:
+      success: Book was successfully destroyed.
+    create:
+      success: Book was successfully created.
+    update: 
+      success: Book was successfully updated.
+
+ 
