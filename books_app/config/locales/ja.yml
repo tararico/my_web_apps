@@ -213,6 +213,7 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
+    
   Books: 一覧
   Title: タイトル
   Memo: メモ
@@ -225,6 +226,14 @@ ja:
   Back: 戻る
   Editing Book: 編集する
   Are you sure?: 本当に削除しますか?
+
+  views:
+    pagination:
+      first: "&laquo; 最初"
+      last: "最後 &raquo;"
+      previous: "&lsaquo; 前"
+      next: "次 &rsaquo;"
+      truncate: "..."
   
   books:
     destroy:
