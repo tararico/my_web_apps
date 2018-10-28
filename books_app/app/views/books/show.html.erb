@@ -15,7 +15,9 @@
 
 <p>
   <strong><%= t('Picture') + ':' %></strong>
-  <%= image_tag(@book.picture_url) if @book.picture.present? %>
+  <% if @book.book_image.attached? %>
+    <%= image_tag @book.book_image %>
+  <% end %>
 </p>
 
 <%= link_to t('Edit'), edit_book_path(@book) %> |
