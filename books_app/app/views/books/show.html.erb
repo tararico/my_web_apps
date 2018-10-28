@@ -16,7 +16,7 @@
 <p>
   <strong><%= t('Picture') + ':' %></strong>
   <% if @book.book_image.attached? %>
-    <%= image_tag @book.book_image %>
+    <%= image_tag url_for(@book.book_image.variant(resize: '128x128')) %>
   <% end %>
 </p>
 
