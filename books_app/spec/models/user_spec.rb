@@ -40,15 +40,15 @@ RSpec.describe User, type: :model do
           end
         end
         auth = MockAuth.new(user)
-        expect(User.find_or_create_for_oauth(auth).email).to eq("sample@test.com")
+        expect(User.find_or_create_for_oauth(auth)).to eq(user)
       end
     end
     context "userが登録されていない場合" do
-      xit "userを登録すること" do
-        expect().to eq
+      xit "userが登録されること" do
+        expect(User.find_or_create_for_oauth(auth).email.exists?).to be false
       end
-      xit "登録したuserを返すこと" do
-        expect().to eq
+      xit "登録してuserを返すこと" do
+        expect(User.find_or_create_for_oauth(auth).email).to eq("sample@test.com")
       end
     end
   end
