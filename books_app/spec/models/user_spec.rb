@@ -40,8 +40,28 @@ RSpec.describe User, type: :model do
       end
     end
     context "userが登録されていない場合" do
-      xit "userが登録されること" do
-        expect(User.find_or_create_for_oauth(auth).email.exists?).to be false
+      it "userが登録されること" do
+        class MockAuth
+          def provider
+            "facebook"
+          end
+          def uid
+          end
+          def info
+            MockInfo.new
+          end
+        end
+        class MockInfo
+          def name
+            "TestUser"
+          end
+          def email
+            "sample@test.com"
+          end
+        end
+        auth = MockAuth.new
+        User.find_or_create_for_oauth(auth)
+        expect(User.exists?(email: "sample@test.com")).to eq true
       end
       it "登録してuserを返すこと" do
         class MockAuth
