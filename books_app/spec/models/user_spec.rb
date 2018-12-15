@@ -18,14 +18,10 @@ RSpec.describe User, type: :model do
           password: "password"
         )
         class MockAuth
-          def initialize(user)
-            @user = user
-          end
           def provider
             "facebook"
           end
           def uid
-            @user.uid
           end
           def info
             MockInfo.new
@@ -39,7 +35,7 @@ RSpec.describe User, type: :model do
             "sample@test.com"
           end
         end
-        auth = MockAuth.new(user)
+        auth = MockAuth.new
         expect(User.find_or_create_for_oauth(auth)).to eq(user)
       end
     end
