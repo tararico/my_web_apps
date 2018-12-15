@@ -9,6 +9,27 @@ RSpec.describe User, type: :model do
     end
   end
   describe "find_or_create_for_oauth" do
+    before do
+      class MockAuth
+        def provider
+          "facebook"
+        end
+        def uid
+        end
+        def info
+          MockInfo.new
+        end
+      end
+      class MockInfo
+        def name
+          "TestUser"
+        end
+        def email
+          "sample@test.com"
+        end
+      end
+      @auth = MockAuth.new
+    end
     context "userが登録されている場合" do
       it "登録されているuserを返すこと" do
         user = User.create(
@@ -17,73 +38,16 @@ RSpec.describe User, type: :model do
           provider: "facebook",
           password: "password"
         )
-        class MockAuth
-          def provider
-            "facebook"
-          end
-          def uid
-          end
-          def info
-            MockInfo.new
-          end
-        end
-        class MockInfo
-          def name
-            "TestUser"
-          end
-          def email
-            "sample@test.com"
-          end
-        end
-        auth = MockAuth.new
-        expect(User.find_or_create_for_oauth(auth)).to eq(user)
+        expect(User.find_or_create_for_oauth(@auth)).to eq(user)
       end
     end
     context "userが登録されていない場合" do
       it "userが登録されること" do
-        class MockAuth
-          def provider
-            "facebook"
-          end
-          def uid
-          end
-          def info
-            MockInfo.new
-          end
-        end
-        class MockInfo
-          def name
-            "TestUser"
-          end
-          def email
-            "sample@test.com"
-          end
-        end
-        auth = MockAuth.new
-        User.find_or_create_for_oauth(auth)
+        User.find_or_create_for_oauth(@auth)
         expect(User.exists?(email: "sample@test.com")).to eq true
       end
       it "登録してuserを返すこと" do
-        class MockAuth
-          def provider
-            "facebook"
-          end
-          def uid
-          end
-          def info
-            MockInfo.new
-          end
-        end
-        class MockInfo
-          def name
-            "TestUser"
-          end
-          def email
-            "sample@test.com"
-          end
-        end
-        auth = MockAuth.new
-        expect(User.find_or_create_for_oauth(auth)).to eq(User.find_by(email: "sample@test.com"))
+        expect(User.find_or_create_for_oauth(@auth)).to eq(User.find_by(email: "sample@test.com"))
       end
     end
   end
