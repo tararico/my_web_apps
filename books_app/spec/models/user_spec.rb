@@ -3,25 +3,13 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe "find_or_create_for_oauth" do
     before do
-      class MockAuth
-        def provider
-          "facebook"
-        end
-        def uid
-        end
-        def info
-          MockInfo.new
-        end
-      end
-      class MockInfo
-        def name
-          "TestUser"
-        end
-        def email
-          "sample@test.com"
-        end
-      end
-      @auth = MockAuth.new
+      @auth = OmniAuth::AuthHash.new(
+        provider: "facebook",
+        info: {
+          name: "TestUser",
+          email: "sample@test.com"
+        },
+      )
     end
     context "userが登録されている場合" do
       it "登録されているuserを返すこと" do
